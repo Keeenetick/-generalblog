@@ -44,17 +44,18 @@ class PostsController extends Controller
             'description'=>'required',
             'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ]);
-        $cover = $request->file('image');
-        $extension = $cover->getClientOriginalExtension();
-        Storage::disk('public')->put($cover->getFilename().'.'.$extension,  File::get($cover));
-        $post = new Post();
-        $post->title = $request->title;
-        $post->description = $request->description;
-        $post->user_id = $request->user_id;
-        $post->user_name = $request->user_name;
-        $post->image = $cover->getFilename().'.'.$extension;
-        $post->save(); 
-        return redirect('/home'); 
+       
+        $path = $request->file('image')->store('uploads','public');
+        $posts = new Post();
+        $posts->title = $request->title;
+        $posts->description = $request->description;
+        $posts->user_id = $request->user_id;
+        $posts->user_name = $request->user_name;
+        $posts->image = $path;
+        $posts->save();
+      
+        return redirect('/home');
+         
     }
         
    

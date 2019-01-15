@@ -26,8 +26,9 @@
                             <button type="submit" class="btn btn-success">Отправить</button>
                    {!!Form::close()!!}
                    @foreach($posts as $post)
-    {{$post->title}}
-@endforeach
+                        <img class="card-img-top" src="{{asset('/storage/'.$post->image)}}">
+                   @endforeach
+                   
                 </div>
 
             </div>
